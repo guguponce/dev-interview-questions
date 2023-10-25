@@ -17,7 +17,8 @@ import CustomIcon from "../../components/CustomIcon";
 export default function QuestionsPage() {
   const { notAnsweredQuestions } = useMock();
   const { params } = useParams();
-  const { addToLocalStorage } = useLocalStorage();
+  const { addToLocalStorage, setLocalStorage, localStorageData } =
+    useLocalStorage();
   const [currentStrike, setCurrentStrike] = useState<number[]>([]);
   const questionsArray = useMemo(
     () =>
