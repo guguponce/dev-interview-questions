@@ -10,7 +10,6 @@ import { Link, useParams } from "react-router-dom";
 import Question from "../../components/Question";
 import { typeQuestion } from "../../utils/interfaces";
 
-import loadingSVG from "../../assets/images/loading/loading.svg";
 import { TECHNOLOGIES_SUPPORTED } from "../../utils/constants";
 import NavBar from "../../components/NavBar";
 import CustomIcon from "../../components/CustomIcon";
@@ -18,8 +17,7 @@ import CustomIcon from "../../components/CustomIcon";
 export default function QuestionsPage() {
   const { notAnsweredQuestions } = useMock();
   const { params } = useParams();
-  const { addToLocalStorage, setLocalStorage, localStorageData } =
-    useLocalStorage();
+  const { addToLocalStorage } = useLocalStorage();
   const [currentStrike, setCurrentStrike] = useState<number[]>([]);
   const questionsArray = useMemo(
     () =>
