@@ -8,6 +8,8 @@ import {
 } from "@mui/material/styles";
 import TechPage from "./pages/TechPage/TechPage.tsx";
 import { useEffect } from "react";
+import InitialDataFetch from "./services/react-query/DataQuery.tsx";
+import QuestionsProvider from "./services/firebase/QuestionsContext.tsx";
 
 const darkTheme = responsiveFontSizes(
   createTheme({
@@ -16,7 +18,6 @@ const darkTheme = responsiveFontSizes(
     },
   })
 );
-
 export default function App() {
   const { pathname } = useLocation();
 
@@ -26,11 +27,15 @@ export default function App() {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <Routes>
-        <Route path="/" element={<HomeScreen />} />
-        <Route path="/questions/:params" element={<QuestionsPage />} />
-        <Route path="/:tech" element={<TechPage />} />
-      </Routes>
+      {/* <InitialDataFetch> */}
+      <QuestionsProvider>
+        <Routes>
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="/questions/:params" element={<QuestionsPage />} />
+          <Route path="/:tech" element={<TechPage />} />
+        </Routes>
+        {/* </InitialDataFetch> */}
+      </QuestionsProvider>
     </ThemeProvider>
   );
 }

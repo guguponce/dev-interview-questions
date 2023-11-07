@@ -1,9 +1,9 @@
-import { useMemo } from "react";
+import { useMemo, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
 import { iDevQuestions } from "../../utils/interfaces";
-import useMock from "../../hooks/useMock";
+import useQuestions from "../../hooks/useQuestions";
 import ReactApexCharts from "react-apexcharts";
 import { Stack } from "@mui/joy";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,13 @@ export default function Progress({
   localStorageData: iDevQuestions[];
   technologiesLearned: string[];
 }) {
-  const { notAnsweredQuestions } = useMock();
+  const [display, setDisplay] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setDisplay(true), 1);
+  }, []);
+
+  const { notAnsweredQuestions } = useQuestions();
   const progress = useMemo(
     () =>
       technologiesLearned.map((tech) => {
@@ -49,7 +55,6 @@ export default function Progress({
         flexWrap={"wrap"}
       >
         {progress.map((t) => {
-          console.log(t);
           return (
             <Box
               role="button"
@@ -68,88 +73,92 @@ export default function Progress({
             >
               <Typography variant="h4">{t.tech}</Typography>
 
-              <ReactApexCharts
-                labels={["✔", "✘"]}
-                series={[
-                  Number(((100 * t.correct) / t.answered).toFixed(2)),
-                  Number(
-                    ((100 * (t.answered - t.correct)) / t.answered).toFixed(2)
-                  ),
-                ]}
-                options={{
-                  dataLabels: {
-                    style: {
-                      fontSize: "16px",
+              {display && (
+                <ReactApexCharts
+                  labels={["✔", "✘"]}
+                  series={[
+                    Number(((100 * t.correct) / t.answered).toFixed(2)),
+                    Number(
+                      ((100 * (t.answered - t.correct)) / t.answered).toFixed(2)
+                    ),
+                  ]}
+                  options={{
+                    dataLabels: {
+                      style: {
+                        fontSize: "16px",
+                        colors: ["#9dd89f", "#ffa9a1"],
+                      },
+                    },
+                    legend: {
+                      show: true,
+                      floating: true,
+                      fontSize: "12px",
+                      position: "left",
+
+                      offsetX: 60,
+                      offsetY: -2,
+                      markers: {
+                        width: 0,
+                      },
+                      labels: {
+                        useSeriesColors: true,
+                      },
+                      formatter: function (seriesName) {
+                        return seriesName;
+                      },
+                      itemMargin: {
+                        vertical: 3,
+                      },
+                    },
+                    labels: ["✔", "✘"],
+                    chart: {
+                      foreColor: "#e9eff5",
+                      height: 250,
+                      type: "radialBar",
+                    },
+                    fill: {
                       colors: ["#9dd89f", "#ffa9a1"],
                     },
-                  },
-                  legend: {
-                    show: true,
-                    floating: true,
-                    fontSize: "12px",
-                    position: "left",
-
-                    offsetX: 60,
-                    offsetY: -2,
-                    markers: {
-                      width: 0,
-                    },
-                    labels: {
-                      useSeriesColors: true,
-                    },
-                    formatter: function (seriesName) {
-                      return seriesName;
-                    },
-                    itemMargin: {
-                      vertical: 3,
-                    },
-                  },
-                  labels: ["✔", "✘"],
-                  chart: {
-                    foreColor: "#e9eff5",
-                    height: 250,
-                    type: "radialBar",
-                  },
-                  fill: {
                     colors: ["#9dd89f", "#ffa9a1"],
-                  },
-                  colors: ["#9dd89f", "#ffa9a1"],
 
-                  plotOptions: {
-                    radialBar: {
-                      offsetY: 0,
-                      startAngle: 0,
-                      endAngle: 270,
-                      dataLabels: {
-                        name: {
-                          fontSize: "22px",
-                        },
-                        value: {
-                          fontSize: "16px",
-                        },
-                        total: {
-                          show: true,
-                          label: "Answered",
-                          formatter: function () {
-                            return t.answered.toString();
+                    plotOptions: {
+                      radialBar: {
+                        offsetY: 0,
+                        startAngle: 0,
+                        endAngle: 270,
+                        dataLabels: {
+                          name: {
+                            fontSize: "22px",
+                          },
+                          value: {
+                            fontSize: "16px",
+                          },
+                          total: {
+                            show: true,
+                            label: "Answered",
+                            formatter: function () {
+                              return t.answered.toString();
+                            },
                           },
                         },
                       },
                     },
-                  },
-                }}
-                type="radialBar"
-                height={250}
-                width={250}
-              />
+                  }}
+                  type="radialBar"
+                  height={250}
+                  width={250}
+                />
+              )}
 
               <Typography variant="caption">
                 Total {t.tech} questions: {t.total}
               </Typography>
-              <LinearProgress
-                variant="determinate"
-                value={(t.answered / t.total) * 100}
-              />
+              {display && (
+                <LinearProgress
+                  variant="determinate"
+                  value={(t.answered / t.total) * 100}
+                />
+              )}
 
               <Typography variant="caption">
                 Answered: {((t.answered * 100) / t.total).toFixed(2)}%

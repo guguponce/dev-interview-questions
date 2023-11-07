@@ -1,10 +1,9 @@
-import React, { useMemo } from "react";
+import React, { useContext, useMemo } from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { useParams } from "react-router-dom";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import useMock from "../../hooks/useMock";
 import StatisticsChart from "./StatisticsChart";
 import { iTechAnswered } from "../../utils/interfaces";
 import QuestionsAccordion from "./QuestionsAccordion";
@@ -14,10 +13,11 @@ import { Stack } from "@mui/material";
 import BiblioCard from "./BiblioCard";
 import CustomIcon from "../../components/CustomIcon";
 import NavBar from "../../components/NavBar";
+import { QuestionsContext } from "../../services/firebase/QuestionsContext";
 
 export default function TechPage() {
   const { tech } = useParams();
-  const { allQuestions } = useMock();
+  const allQuestions = useContext(QuestionsContext);
   const { localStorageData } = useLocalStorage();
   const techAnswered: iTechAnswered = useMemo(() => {
     if (!localStorageData) return { all: [] };

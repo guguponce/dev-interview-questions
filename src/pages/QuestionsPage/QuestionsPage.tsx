@@ -1,24 +1,24 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-
 import useLocalStorage from "../../hooks/useLocalStorage";
-import useMock from "../../hooks/useMock";
+import useQuestions from "../../hooks/useQuestions";
 import { Link, useParams } from "react-router-dom";
 import Question from "../../components/Question";
 import { typeQuestion } from "../../utils/interfaces";
-
 import { TECHNOLOGIES_SUPPORTED } from "../../utils/constants";
 import NavBar from "../../components/NavBar";
 import CustomIcon from "../../components/CustomIcon";
 
 export default function QuestionsPage() {
-  const { notAnsweredQuestions } = useMock();
+  const { notAnsweredQuestions } = useQuestions();
   const { params } = useParams();
   const { addToLocalStorage } = useLocalStorage();
   const [currentStrike, setCurrentStrike] = useState<number[]>([]);
+
+  console.log("notAnsweredQuestions", notAnsweredQuestions);
   const questionsArray = useMemo(
     () =>
       currentStrike
@@ -45,7 +45,14 @@ export default function QuestionsPage() {
     setCurrentStrike((prev) => [...prev, currentQuestion.id]);
   };
 
-  if (!params || !TECHNOLOGIES_SUPPORTED.includes(params)) {
+  const parametros = useMemo(() => {
+    if (!params) return null;
+    return params.includes("+")
+      ? params.split("+").filter((p) => !TECHNOLOGIES_SUPPORTED.includes(p))
+      : [];
+  }, [params]);
+
+  if (!params || !!parametros?.length) {
     return (
       <>
         <NavBar />
@@ -58,7 +65,16 @@ export default function QuestionsPage() {
             flexDirection: "column",
           }}
         >
-          <Typography variant="h3">No questions found</Typography>
+          <Typography variant="h3">
+            No questions found for:{" "}
+            {parametros?.map((p, i) => (
+              <span key={p + i}>
+                {" "}
+                {p}{" "}
+                {parametros.length > 1 && i !== parametros.length - 1 && "|"}
+              </span>
+            ))}
+          </Typography>
           <Typography my={2} variant="body1" fontStyle={"italic"}>
             Please go back to the homepage
           </Typography>
