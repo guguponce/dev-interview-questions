@@ -11,6 +11,7 @@ import { typeQuestion } from "../../utils/interfaces";
 import { TECHNOLOGIES_SUPPORTED } from "../../utils/constants";
 import NavBar from "../../components/NavBar";
 import CustomIcon from "../../components/CustomIcon";
+import IncludeNavBar from "../../components/IncludeNavBar";
 
 export default function QuestionsPage() {
   const { notAnsweredQuestions } = useQuestions();
@@ -49,13 +50,12 @@ export default function QuestionsPage() {
     if (!params) return null;
     return params.includes("+")
       ? params.split("+").filter((p) => !TECHNOLOGIES_SUPPORTED.includes(p))
-      : [];
+      : [params];
   }, [params]);
 
   if (!params || !!parametros?.length) {
     return (
-      <>
-        <NavBar />
+      <IncludeNavBar>
         <Container
           sx={{
             height: "100%",
@@ -82,13 +82,12 @@ export default function QuestionsPage() {
             <Button variant="contained">Return</Button>
           </Link>
         </Container>
-      </>
+      </IncludeNavBar>
     );
   }
 
   return (
-    <>
-      <NavBar />
+    <IncludeNavBar>
       <Container
         sx={{
           width: [
@@ -102,17 +101,23 @@ export default function QuestionsPage() {
         {!currentQuestion ? (
           <Container>
             <Box height={"200px"}>
-              <CustomIcon name={params} />
+              <CustomIcon name={params.split("+")[0]} />
             </Box>
-
             <Typography variant="h3">Loading...</Typography>
           </Container>
         ) : (
-          <>
+          <Container
+            sx={{
+              maxWidth: "800px !important",
+              width: "80vw",
+            }}
+          >
+            <Box height={"75px"} width={"75px"} mb={2} mx={"auto"}>
+              <CustomIcon name={currentQuestion.tech} />
+            </Box>
             <Box
               sx={{
-                maxWidth: "800px",
-                width: "80vw",
+                width: "100%",
                 background: "linear-gradient(-45deg, #335571 30%, #2d485f 90%)",
                 m: "0 auto",
                 borderRadius: "0.5rem",
@@ -143,9 +148,9 @@ export default function QuestionsPage() {
                 <Button variant="contained">Statistics</Button>
               </Link>
             </Box>
-          </>
+          </Container>
         )}
       </Container>
-    </>
+    </IncludeNavBar>
   );
 }

@@ -9,6 +9,7 @@ export default function NavBar() {
         width: "100vw",
         height: "fit-content",
         position: "fixed",
+        display: "flex",
         left: 0,
         top: 0,
         background:
@@ -27,9 +28,28 @@ export default function NavBar() {
           top: 0,
           left: 0,
         },
+        "&:has(a:hover)": {
+          background:
+            "linear-gradient(90deg, hsl(205, 34%, 48%,0.6)  30%,  hsl(205, 37%, 60%,0.6) 90%)",
+          zIndex: 100,
+          "&::before": {
+            zIndex: 5,
+
+            width: ["50px", "50px", "116px"],
+            background:
+              "linear-gradient(180deg, hsl(205, 34%, 48%,0.6)  30%,  hsl(205, 37%, 60%,0.6) 90%)",
+          },
+        },
       }}
     >
-      <Link style={{ color: "inherit", textDecoration: "none" }} to={"/"}>
+      <Link
+        style={{
+          display: "inline-block",
+          color: "inherit",
+          textDecoration: "none",
+        }}
+        to={"/"}
+      >
         <Box
           sx={{
             display: ["none", "none", "block"],
@@ -50,6 +70,31 @@ export default function NavBar() {
               fontSize: "1rem",
               fontWeight: "bold",
               margin: 0,
+            },
+            "&::before": {
+              content: "''",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              opacity: 0,
+              position: "absolute",
+              height: "100%",
+              left: "150%",
+              fontSize: "1.5rem",
+              textAlign: "center",
+              mt: 0,
+              color: "white",
+              zIndex: -1,
+              transition: "opacity 0.5s ease",
+            },
+            "&:hover": {
+              "&::before": {
+                content: "'\\01f3ebHome'",
+                filter: "saturate(0.5)",
+                opacity: 1,
+                position: "absolute",
+                transform: "translate(-50%, 0%)",
+              },
             },
           }}
         >
