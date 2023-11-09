@@ -9,7 +9,7 @@ import { iTechAnswered } from "../../utils/interfaces";
 import QuestionsAccordion from "./QuestionsAccordion";
 import StartLearning from "./StartLearning";
 import { BIBLIOGRAPHY_LINKS } from "../../utils/constants";
-import { Stack } from "@mui/material";
+import Stack from "@mui/material/Stack";
 import BiblioCard from "./BiblioCard";
 import CustomIcon from "../../components/CustomIcon";
 import NavBar from "../../components/NavBar";

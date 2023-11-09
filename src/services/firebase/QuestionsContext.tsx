@@ -8,37 +8,30 @@ export const QuestionsContext = createContext<typeQuestion[]>([]);
 const QuestionsProvider = ({ children }: { children: JSX.Element }) => {
   const [allQuestions, setAllQuestions] = useState<typeQuestion[]>([]);
 
-  useEffect(() => {
-    const abortController = new AbortController();
-
-    const fetchQuestions = async () => {
-      console.log("fetching");
-
-      const retrievedQuestions: typeQuestion[] = [];
-      getDocs(collection(db, "devQuestions"))
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            retrievedQuestions.push(doc.data() as typeQuestion);
-          });
-
-          return retrievedQuestions;
-        })
-        .then((data: typeQuestion[]) => {
-          console.log("questions fetched");
-          setAllQuestions(data);
-        })
-        .catch((error: Error) => {
-          throw new Error(`Error: ${error.message}`);
+  const fetchQuestions = async () => {
+    let retrievedQuestions: typeQuestion[] = [];
+    getDocs(collection(db, "questionsDB"))
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          retrievedQuestions = [
+            ...retrievedQuestions,
+            ...(Object.values(doc.data()) as typeQuestion[]),
+          ];
         });
-    };
+        return retrievedQuestions;
+      })
+      .then((data: typeQuestion[]) => {
+        setAllQuestions(data.flat());
+      })
+      .catch((error: Error) => {
+        throw new Error(`Error: ${error.message}`);
+      });
+  };
 
+  useEffect(() => {
+    console.log("useeffect context");
     fetchQuestions();
-
-    return () => {
-      abortController.abort();
-    };
   }, []);
-
   return (
     <QuestionsContext.Provider value={allQuestions}>
       {children}

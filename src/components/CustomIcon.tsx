@@ -1,4 +1,4 @@
-import { SvgIcon } from "@mui/material";
+import SvgIcon from "@mui/material/SvgIcon";
 
 export default function CustomIcon({ name }: { name: string }) {
   return (

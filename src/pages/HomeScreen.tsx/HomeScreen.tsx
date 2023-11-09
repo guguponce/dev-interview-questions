@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Stack } from "@mui/material";
-import { Typography } from "@mui/material";
-import { Button } from "@mui/material";
-import { Box } from "@mui/material";
-import { Container } from "@mui/material";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import useLocalStorage from "../../hooks/useLocalStorage";
@@ -33,7 +33,7 @@ function HomeScreen() {
     >
       <Typography
         sx={{
-          backgroundColor: "#729ebe",
+          backgroundColor: "#3a6282",
           color: "white",
           width: "100%",
           padding: "0.25rem 0.5rem",
@@ -45,11 +45,13 @@ function HomeScreen() {
         Dev Interview Questions
       </Typography>
       <Typography
-        variant="subtitle1"
+        variant="body1"
         sx={{
+          fontSize: "1.25rem",
           width: "80%",
-          textAlign: "center",
-          padding: "0 0.5rem",
+          textAlign: "start",
+          fontStyle: "italic",
+          padding: "1rem 0.5rem",
           marginBottom: "1rem",
         }}
       >

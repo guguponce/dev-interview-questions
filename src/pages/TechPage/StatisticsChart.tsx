@@ -1,5 +1,7 @@
-import { Stack } from "@mui/material";
-import { Card, CardContent, CardActions } from "@mui/material";
+import Stack from "@mui/material/Stack";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Card from "@mui/material/Card";
 import { Link } from "react-router-dom";
 
 import Box from "@mui/material/Box";

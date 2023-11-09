@@ -9,7 +9,6 @@ import { Link, useParams } from "react-router-dom";
 import Question from "../../components/Question";
 import { typeQuestion } from "../../utils/interfaces";
 import { TECHNOLOGIES_SUPPORTED } from "../../utils/constants";
-import NavBar from "../../components/NavBar";
 import CustomIcon from "../../components/CustomIcon";
 import IncludeNavBar from "../../components/IncludeNavBar";
 
@@ -18,8 +17,6 @@ export default function QuestionsPage() {
   const { params } = useParams();
   const { addToLocalStorage } = useLocalStorage();
   const [currentStrike, setCurrentStrike] = useState<number[]>([]);
-
-  console.log("notAnsweredQuestions", notAnsweredQuestions);
   const questionsArray = useMemo(
     () =>
       currentStrike
@@ -49,11 +46,11 @@ export default function QuestionsPage() {
   const parametros = useMemo(() => {
     if (!params) return null;
     return params.includes("+")
-      ? params.split("+").filter((p) => !TECHNOLOGIES_SUPPORTED.includes(p))
+      ? params.split("+").filter((p) => TECHNOLOGIES_SUPPORTED.includes(p))
       : [params];
   }, [params]);
 
-  if (!params || !!parametros?.length) {
+  if (!params || !parametros?.length) {
     return (
       <IncludeNavBar>
         <Container

@@ -8,7 +8,6 @@ export default function useQuestions() {
   const { localStorageData } = useLocalStorage();
   const { params } = useParams();
   const allQuestions = useContext(QuestionsContext);
-
   const techFilteredQuestions = useMemo(() => {
     if (!allQuestions) return [];
     if (!params) return allQuestions;

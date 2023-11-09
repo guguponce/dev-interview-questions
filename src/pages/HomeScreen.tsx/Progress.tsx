@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import { iDevQuestions } from "../../utils/interfaces";
 import useQuestions from "../../hooks/useQuestions";
 import ReactApexCharts from "react-apexcharts";
-import { Stack } from "@mui/joy";
+import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
 
 export default function Progress({
@@ -155,6 +155,7 @@ export default function Progress({
               </Typography>
               {display && (
                 <LinearProgress
+                  // aria-name={"progress-bar" + t.tech}
                   variant="determinate"
                   value={(t.answered / t.total) * 100}
                 />

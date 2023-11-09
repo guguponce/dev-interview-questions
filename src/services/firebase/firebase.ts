@@ -26,7 +26,6 @@ export const addQuestion = async (question: typeQuestion) => {
 };
 
 export const getQuestions = async () => {
-  console.log("fetching");
   const retrievedQuestions: typeQuestion[] = [];
 
   getDocs(collection(db, "devQuestions"))
@@ -37,8 +36,6 @@ export const getQuestions = async () => {
       return retrievedQuestions;
     })
     .then((data: typeQuestion[]) => {
-      console.log("questions fetched");
-      console.log("data", data);
       return data;
     })
     .catch((error: Error) => {

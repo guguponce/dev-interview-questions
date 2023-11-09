@@ -1,5 +1,6 @@
-import { Stack } from "@mui/material";
-import { Card, CardContent } from "@mui/material";
+import Stack from "@mui/material/Stack";
+import CardContent from "@mui/material/CardContent";
+import Card from "@mui/material/Card";
 import { Link } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
