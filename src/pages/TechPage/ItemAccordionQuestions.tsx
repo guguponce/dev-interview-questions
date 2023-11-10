@@ -5,7 +5,6 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
-import React from "react";
 import { typeQuestion } from "../../utils/interfaces";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
@@ -20,12 +19,12 @@ export default function ItemAccordionQuestions({
   questionExpanded: string | false;
   handleChangeQuestionExpanded: (
     question: string
-  ) => (event: React.SyntheticEvent, isQuestionExpanded: boolean) => void;
+  ) => (isQuestionExpanded: boolean) => void;
 }) {
   return (
     <Accordion
       expanded={questionExpanded === currentQuestion.question}
-      onChange={handleChangeQuestionExpanded(currentQuestion.question)}
+      onChange={() => handleChangeQuestionExpanded(currentQuestion.question)}
       sx={{
         color: type === "correct" ? "hsl(138, 50%, 74%)" : "hsl(0, 52%,74%)",
         textAlign: "left",

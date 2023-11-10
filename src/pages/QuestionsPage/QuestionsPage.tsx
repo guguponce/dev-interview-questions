@@ -43,14 +43,14 @@ export default function QuestionsPage() {
     setCurrentStrike((prev) => [...prev, currentQuestion.id]);
   };
 
-  const parametros = useMemo(() => {
+  const questionTechs = useMemo(() => {
     if (!params) return null;
     return params.includes("+")
       ? params.split("+").filter((p) => TECHNOLOGIES_SUPPORTED.includes(p))
       : [params];
   }, [params]);
 
-  if (!params || !parametros?.length) {
+  if (!params || !questionTechs?.length) {
     return (
       <IncludeNavBar>
         <Container
@@ -64,11 +64,13 @@ export default function QuestionsPage() {
         >
           <Typography variant="h3">
             No questions found for:{" "}
-            {parametros?.map((p, i) => (
+            {questionTechs?.map((p, i) => (
               <span key={p + i}>
                 {" "}
                 {p}{" "}
-                {parametros.length > 1 && i !== parametros.length - 1 && "|"}
+                {questionTechs.length > 1 &&
+                  i !== questionTechs.length - 1 &&
+                  "|"}
               </span>
             ))}
           </Typography>

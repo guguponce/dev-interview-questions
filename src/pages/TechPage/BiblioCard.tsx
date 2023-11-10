@@ -3,6 +3,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import { openWebBlank } from "../../utils/functions";
 
 interface BiblioCardProps {
   title: string;
@@ -17,10 +18,6 @@ const BiblioCard: React.FC<BiblioCardProps> = ({
   imageUrl,
   linkUrl,
 }) => {
-  const handleClick = () => {
-    window.open(linkUrl, "_blank");
-  };
-
   return (
     <Card
       sx={{
@@ -37,7 +34,7 @@ const BiblioCard: React.FC<BiblioCardProps> = ({
         },
         cursor: "pointer",
       }}
-      onClick={handleClick}
+      onClick={() => openWebBlank(linkUrl)}
     >
       <CardMedia
         component="img"

@@ -29,7 +29,6 @@ const QuestionsProvider = ({ children }: { children: JSX.Element }) => {
   };
 
   useEffect(() => {
-    console.log("useeffect context");
     fetchQuestions();
   }, []);
   return (

@@ -23,14 +23,12 @@ export default function QuestionsAccordion({
   );
 
   const handleChangeTypeExpanded =
-    (panel: string) =>
-    (event: React.SyntheticEvent, isTypeExpanded: boolean) => {
+    (panel: string) => (isTypeExpanded: boolean) => {
       setTypeExpanded(isTypeExpanded ? panel : false);
     };
 
   const handleChangeQuestionExpanded =
-    (question: string) =>
-    (event: React.SyntheticEvent, isQuestionExpanded: boolean) => {
+    (question: string) => (isQuestionExpanded: boolean) => {
       setQuestionExpanded(isQuestionExpanded ? question : false);
     };
   return (
@@ -53,7 +51,7 @@ export default function QuestionsAccordion({
           <Accordion
             key={type}
             expanded={typeExpanded === type}
-            onChange={handleChangeTypeExpanded(type)}
+            onChange={() => handleChangeTypeExpanded(type)}
             sx={{
               "& .css-1tmu6hb-MuiButtonBase-root-MuiAccordionSummary-root.Mui-expanded":
                 {

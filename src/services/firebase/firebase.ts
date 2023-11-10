@@ -25,25 +25,6 @@ export const addQuestion = async (question: typeQuestion) => {
   }
 };
 
-export const getQuestions = async () => {
-  const retrievedQuestions: typeQuestion[] = [];
-
-  getDocs(collection(db, "devQuestions"))
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        retrievedQuestions.push(doc.data() as typeQuestion);
-      });
-      return retrievedQuestions;
-    })
-    .then((data: typeQuestion[]) => {
-      return data;
-    })
-    .catch((error: Error) => {
-      throw new Error(`Error: ${error.message}`);
-    });
-  return retrievedQuestions;
-};
-
 export const fetchQuestions = async () => {
   console.log("starting");
   try {
@@ -57,6 +38,6 @@ export const fetchQuestions = async () => {
 
     return retrievedQuestions;
   } catch (error) {
-    throw new Error(`Error: ${error.message}`);
+    throw new Error(`Error: ${(error as Error).message}`);
   }
 };

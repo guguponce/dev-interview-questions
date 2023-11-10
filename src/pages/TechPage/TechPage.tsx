@@ -19,6 +19,7 @@ export default function TechPage() {
   const { tech } = useParams();
   const allQuestions = useContext(QuestionsContext);
   const { localStorageData } = useLocalStorage();
+
   const techAnswered: iTechAnswered = useMemo(() => {
     if (!localStorageData) return { all: [] };
     const ans = localStorageData
