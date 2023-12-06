@@ -1,4 +1,14 @@
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import type { TypeQuestion, TechQuestions } from "./lib/types";
 import { db } from "./lib/firebase";
 
@@ -22,10 +32,34 @@ const api = {
       return retrievedQuestions || [];
     }
   },
-  addQuestion: async (question: TypeQuestion): Promise<void> => {
+  addQuestion: async (question: {
+    [key: string]: TypeQuestion[];
+  }): Promise<void> => {
     try {
-      addDoc(collection(db, "devQuestions"), question);
+      addDoc(collection(db, "questionsDB"), question);
       console.log("Question added: ", question.id);
+    } catch (error) {
+      console.error("Error adding question: ", error);
+    }
+  },
+  getD: async (tech: string): Promise<TypeQuestion[] | undefined> => {
+    try {
+      const res = await getDoc(doc(db, "questionsDB", tech));
+      if (res.exists()) {
+        return Object.values(res.data())[0] as TypeQuestion[];
+      }
+    } catch (error) {
+      console.error("Error adding question: ", error);
+    }
+  },
+  updateTechQuestions: async (
+    tech: string,
+    question: TechQuestions
+  ): Promise<void> => {
+    try {
+      setDoc(doc(db, "questionsDB", tech), question).then((val) =>
+        console.log("Question added: ", val)
+      );
     } catch (error) {
       console.error("Error adding question: ", error);
     }

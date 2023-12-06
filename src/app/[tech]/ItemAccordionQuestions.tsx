@@ -23,7 +23,6 @@ export default function ItemAccordionQuestions({
 
   const handleChangeQuestionExpanded =
     (quetion: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-      console.log(quetion);
       setQuestionExpanded(isExpanded ? quetion : false);
     };
 
