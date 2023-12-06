@@ -1,0 +1,24 @@
+#current-question-loading {
+  height: 80vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  .techIconBox {
+    width: clamp(100px, 20vw, 200px);
+    height: clamp(100px, 20vw, 200px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: appear 200ms ease-in forwards;
+    @keyframes appear {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+}
