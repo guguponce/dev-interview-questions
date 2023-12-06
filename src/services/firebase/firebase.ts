@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, query } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 import { addDoc, collection } from "firebase/firestore";
 import { typeQuestion } from "../../utils/interfaces";
 import { getDocs } from "firebase/firestore/lite";
@@ -25,19 +25,19 @@ export const addQuestion = async (question: typeQuestion) => {
   }
 };
 
-export const fetchQuestions = async () => {
-  console.log("starting");
-  try {
-    const querySnapshot = await getDocs(collection(db, "devQuestions"));
-    const retrievedQuestions = querySnapshot.docs.map(
-      (doc) => doc.data() as typeQuestion
-    );
+// export const fetchQuestions = async () => {
+//   console.log("starting");
+//   try {
+//     const querySnapshot = await getDocs(collection(db, "devQuestions"));
+//     const retrievedQuestions = querySnapshot.docs.map(
+//       (doc) => doc.data() as typeQuestion
+//     );
 
-    console.log("questions fetched adsfasdf");
-    console.log(retrievedQuestions);
+//     console.log("questions fetched adsfasdf");
+//     console.log(retrievedQuestions);
 
-    return retrievedQuestions;
-  } catch (error) {
-    throw new Error(`Error: ${(error as Error).message}`);
-  }
-};
+//     return retrievedQuestions;
+//   } catch (error) {
+//     throw new Error(`Error: ${(error as Error).message}`);
+//   }
+// };

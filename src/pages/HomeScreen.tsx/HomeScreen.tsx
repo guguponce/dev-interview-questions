@@ -10,6 +10,7 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import Progress from "./Progress";
 import TechCard from "./TechCard";
 import { TECHNOLOGIES_SUPPORTED } from "../../utils/constants";
+
 function HomeScreen() {
   const { technologiesLearned, localStorageData } = useLocalStorage();
   const [selectedTech, setSelectedTech] = useState<string[]>(
