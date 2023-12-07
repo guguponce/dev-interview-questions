@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -11,8 +11,8 @@ import Stack from "@mui/material/Stack";
 
 import { TypeQuestion } from "@/app/lib/types";
 import AnswerIcon from "./AnswerIcon";
-import dynamic from "next/dynamic";
 import MUIThemeProvider from "@/app/ThemeProvider";
+import { Box } from "@mui/material";
 
 export default function Question({
   currentQuestion,
@@ -75,6 +75,39 @@ export default function Question({
           }}
         >
           <Typography>{currentQuestion.question}</Typography>
+          {currentQuestion.codeSnippet && (
+            <Box
+              sx={{
+                bgcolor: "#2a3e50",
+                color: "#fefefe",
+                fontStyle: "italic",
+                width: "fit-content",
+                px: "1.5rem",
+                py: "0.25rem",
+                borderRadius: "0.25rem",
+                mt: "0.5rem",
+              }}
+            >
+              <Typography variant="body2">
+                {currentQuestion.codeSnippet
+                  .split(/(;|{|})(?![^()]*\))/)
+                  .map((item) => {
+                    if (item.match(/(;|{|})(?![^()]*\))/)) {
+                      return (
+                        <React.Fragment key={item + Math}>
+                          {" "}
+                          {item}
+                          <br />{" "}
+                        </React.Fragment>
+                      );
+                    }
+                    return (
+                      <React.Fragment key={item + Math}>{item}</React.Fragment>
+                    );
+                  })}
+              </Typography>
+            </Box>
+          )}
         </FormLabel>
         <RadioGroup
           aria-labelledby="radio-buttons-group"

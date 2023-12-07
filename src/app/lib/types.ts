@@ -12,6 +12,7 @@ export type TypeQuestion = {
   topic: string;
   correctAnswer: boolean | string;
   incorrectAnswers: boolean | string[];
+  codeSnippet?: string;
 };
 
 export type TechQuestions = {

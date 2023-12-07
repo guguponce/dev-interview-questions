@@ -98,6 +98,7 @@ export default function Questions({
               />
             </Box>
           </Box>
+
           <Box my={4}>
             <Typography fontStyle={"italic"} variant="body1">
               Check your progress on {currentQuestion.tech}
