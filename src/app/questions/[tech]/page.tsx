@@ -2,6 +2,8 @@ import { TypeQuestion } from "@/app/lib/types";
 import api from "@/app/api";
 import CurrentQuestion from "./CurrentQuestion";
 import dynamic from "next/dynamic";
+import { useEffect } from "react";
+import { Container } from "@mui/material";
 
 const DynamicCurrentQuestion = dynamic(async () => CurrentQuestion, {
   ssr: false,
@@ -19,5 +21,16 @@ export default async function QuestionsPage({
   )
     .map((q) => Object.values(q)[0])
     .flat();
-  return <DynamicCurrentQuestion techQuestions={techQuestions} />;
+  return (
+    <Container
+      sx={{
+        maxWidth: "800px !important",
+        width: "80vw",
+      }}
+    >
+      {techQuestions && (
+        <DynamicCurrentQuestion tech={tech} techQuestions={techQuestions} />
+      )}
+    </Container>
+  );
 }

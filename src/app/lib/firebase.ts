@@ -1,7 +1,5 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { addDoc, collection } from "firebase/firestore";
-import { TypeQuestion } from "@/app/lib/types";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_FIREBASE_API_KEY,

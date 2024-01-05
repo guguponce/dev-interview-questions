@@ -68,6 +68,7 @@ const api = {
     let retrievedQuestions: TechQuestions[] = [] as TechQuestions[];
     try {
       const querySnapshot = await getDocs(collection(db, "questionsDB"));
+      console.log(querySnapshot.forEach((a) => console.log(a.data())));
       querySnapshot.forEach((doc) => {
         tech.includes(Object.keys(doc.data())[0]) &&
           (retrievedQuestions = [...retrievedQuestions, doc.data()]);

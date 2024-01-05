@@ -22,11 +22,12 @@ const BiblioCard: React.FC<BiblioCardProps> = ({
       <Card
         sx={{
           display: "flex",
-          flexDirection: ["row", "column"],
+          flexDirection: ["row", "row", "column"],
           borderRadius: "0.5rem",
-          width: ["100%", 245],
-          maxWidth: ["100vw", 245],
-          alignItems: ["center", "flex-start"],
+          mx: "auto",
+          width: ["100%", "80%", 245],
+          maxWidth: ["100vw", "80vw", 245],
+          alignItems: ["center", "center", "flex-start"],
           background: "radial-gradient(#fefefe,#f5f7fa)",
           transition: "transform 0.2s",
           "&:hover": {
@@ -41,7 +42,7 @@ const BiblioCard: React.FC<BiblioCardProps> = ({
             objectFit: "contain",
             height: 140,
             minHeight: 140,
-            width: [140, "100%"],
+            width: [140, 140, "100%"],
             padding: "0.5rem",
             margin: "0 auto",
           }}

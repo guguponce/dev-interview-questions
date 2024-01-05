@@ -329,14 +329,14 @@ export default function CustomIcon({ name }: { name: string }) {
             version="1.1"
             id="Layer_1"
             viewBox="0 0 50 50"
-            enable-background="new 0 0 50 50"
+            enableBackground="new 0 0 50 50"
             fill="hsl(18, 79%, 28%)"
           >
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
             <g
               id="SVGRepo_tracerCarrier"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             ></g>
             <g id="SVGRepo_iconCarrier">
               {" "}

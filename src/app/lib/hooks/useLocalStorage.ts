@@ -26,6 +26,19 @@ export default function useLocalStorage() {
     devQuestions.push(devQuestion);
     window.localStorage.setItem("devQuestions", JSON.stringify(devQuestions));
   };
+  const resetIncorrectFromLocalStorage = () => {
+    const localStorageData = window.localStorage.getItem("devQuestions");
+    const devQuestions = localStorageData
+      ? JSON.parse(localStorageData)
+      : ([] as iDevQuestions[]);
+    const correctQuestions = devQuestions.filter(
+      (q: iDevQuestions) => q.answer
+    );
+    window.localStorage.setItem(
+      "devQuestions",
+      JSON.stringify(correctQuestions)
+    );
+  };
   const answeredIDS = localStorageData?.map((q) => q.id) || [];
 
   return {
@@ -34,5 +47,6 @@ export default function useLocalStorage() {
     setLocalStorage,
     addToLocalStorage,
     technologiesLearned,
+    resetIncorrectFromLocalStorage,
   };
 }

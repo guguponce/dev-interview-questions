@@ -5,7 +5,6 @@ import Typography from "@mui/material/Typography";
 import { BIBLIOGRAPHY_LINKS } from "@/app/lib/data";
 import Stack from "@mui/material/Stack";
 import CustomIcon from "@/app/ui/components/CustomIcon";
-import NavBar from "@/app/ui/components/NavBar";
 import api from "@/app/api";
 
 import BiblioCard from "./BiblioCard";
@@ -105,10 +104,11 @@ export default async function TechPage({
                 <Typography variant="h5">{type}</Typography>
               </Stack>
               <Stack
-                direction="row"
+                direction={["column", "column", "row"]}
                 flexWrap={"wrap"}
                 gap={2}
                 justifyContent={"center"}
+                alignItems={"center"}
               >
                 {links.map(({ name, description, url, logo }) => (
                   <React.Fragment key={name}>

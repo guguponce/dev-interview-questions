@@ -140,10 +140,13 @@ export default function StatisticsChart({
         >
           <Stack sx={{ margin: "0 auto" }} alignItems={"center"}>
             <Typography variant="subtitle1">
-              Would you like to answer some more?
+              {techQuestionsQuantity <= techAnswered.all.length
+                ? "Would you like to reset the incorrect questions?"
+                : "Would you like to answer some more?"}
             </Typography>
-            <Link href={`/questions/${tech}`}>
+            {techQuestionsQuantity <= techAnswered.all.length ? (
               <Button
+                onClick={() => {}}
                 variant="contained"
                 size="medium"
                 sx={{
@@ -152,9 +155,8 @@ export default function StatisticsChart({
                   fontWeight: 600,
                   color: "#fefefe !important",
                   background:
-                    "linear-gradient(90deg, #6bbd6e 40%, #9dd89f 100%) !important",
+                    "linear-gradient(90deg, red 40%, #9dd89f 100%) !important",
                   transition: "transform 0.2s",
-                  marginTop: "2rem",
                   "&:hover": {
                     transform: "scale(1.01)",
                     background:
@@ -165,9 +167,35 @@ export default function StatisticsChart({
                   },
                 }}
               >
-                Continue
+                Reset
               </Button>
-            </Link>
+            ) : (
+              <Link href={`/questions/${tech}`}>
+                <Button
+                  variant="contained"
+                  size="medium"
+                  sx={{
+                    width: "fit-content",
+                    margin: "0.5rem auto",
+                    fontWeight: 600,
+                    color: "#fefefe !important",
+                    background:
+                      "linear-gradient(90deg, #6bbd6e 40%, #9dd89f 100%) !important",
+                    transition: "transform 0.2s",
+                    "&:hover": {
+                      transform: "scale(1.01)",
+                      background:
+                        "linear-gradient(-90deg,  #6bbd6e 40%, #9dd89f 100%)",
+                    },
+                    "&:active": {
+                      transform: "scale(0.99)",
+                    },
+                  }}
+                >
+                  Continue
+                </Button>
+              </Link>
+            )}
           </Stack>
         </CardActions>
       </Card>

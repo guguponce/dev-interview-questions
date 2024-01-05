@@ -13,6 +13,7 @@ export type TypeQuestion = {
   correctAnswer: boolean | string;
   incorrectAnswers: boolean | string[];
   codeSnippet?: string;
+  explanation?: string;
 };
 
 export type TechQuestions = {

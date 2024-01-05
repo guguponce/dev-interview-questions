@@ -18,7 +18,9 @@ export default function Question({
   currentQuestion,
   handleGetNextQuestion,
   handleAddToLocalStorage,
+  handleShowExplanation,
 }: {
+  handleShowExplanation: (boolean: boolean) => void;
   currentQuestion: TypeQuestion;
   handleGetNextQuestion: (
     currentQuestion: TypeQuestion,
@@ -31,7 +33,7 @@ export default function Question({
 }) {
   const [answerSubmitted, setAnswerSubmitted] = useState<string | null>(null);
   const [formValue, setFormValue] = useState<string>("");
-
+  console.log(currentQuestion);
   const randomizedAnswers = useMemo(() => {
     if (!currentQuestion) return [];
     const answers =
@@ -52,6 +54,7 @@ export default function Question({
       val === String(currentQuestion.correctAnswer)
     );
     setAnswerSubmitted(val);
+    handleShowExplanation(true);
   };
   const handleChangeAnswer = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormValue((e.target as HTMLInputElement).value);
@@ -63,10 +66,23 @@ export default function Question({
       String(currentQuestion.correctAnswer) === answerSubmitted
     );
     setAnswerSubmitted(null);
+    handleShowExplanation(false);
   };
+
+  console.log("currentQuestion.", currentQuestion);
   return (
     <MUIThemeProvider>
-      <FormControl fullWidth>
+      <FormControl
+        fullWidth
+        // sx={{
+        //   outline:
+        //     !!answerSubmitted &&
+        //     currentQuestion.correctAnswer === answerSubmitted
+        //       ? "2px solid #6bbd6e50"
+        //       : "2px solid #fe786b50",
+        //   borderRadius: "0 0 0.25rem 0.25rem",
+        // }}
+      >
         <FormLabel
           id="demo-radio-buttons-group-label"
           sx={{
@@ -92,17 +108,18 @@ export default function Question({
                 {currentQuestion.codeSnippet
                   .split(/(;|{|})(?![^()]*\))/)
                   .map((item) => {
-                    if (item.match(/(;|{|})(?![^()]*\))/)) {
+                    if (item.match(/(;|{)(?![^()]*\))/)) {
                       return (
-                        <React.Fragment key={item + Math}>
-                          {" "}
+                        <React.Fragment key={item + Math.random()}>
                           {item}
-                          <br />{" "}
+                          <br />
                         </React.Fragment>
                       );
                     }
                     return (
-                      <React.Fragment key={item + Math}>{item}</React.Fragment>
+                      <React.Fragment key={item + Math.random()}>
+                        {item}
+                      </React.Fragment>
                     );
                   })}
               </Typography>
@@ -117,12 +134,23 @@ export default function Question({
           onChange={handleChangeAnswer}
         >
           {randomizedAnswers.map((answer) => (
-            <Stack direction={"row"} key={answer} alignItems={"center"}>
+            <Stack
+              width={"100%"}
+              direction={"row"}
+              key={answer + Math.random()}
+              alignItems={"center"}
+              mb={"0.1rem"}
+              sx={{
+                backgroundColor: "#1c283520",
+              }}
+            >
               <FormControlLabel
                 control={<Radio />}
                 label={answer}
                 value={answer}
                 sx={{
+                  display: "block",
+                  flex: 1,
                   color:
                     answerSubmitted &&
                     answer === answerSubmitted &&
@@ -140,12 +168,14 @@ export default function Question({
                   m: "0 0.5rem",
                 }}
               />
-              {answer === answerSubmitted &&
-                answer !== String(currentQuestion.correctAnswer) &&
-                AnswerIcon(false, "#fe786b")}
-              {answerSubmitted &&
-                answer === String(currentQuestion.correctAnswer) &&
-                AnswerIcon(true, "#6bbd6e")}
+              <Box minWidth={answerSubmitted ? "2rem" : "0"}>
+                {answer === answerSubmitted &&
+                  answer !== String(currentQuestion.correctAnswer) &&
+                  AnswerIcon(false, "#fe786b")}
+                {answerSubmitted &&
+                  answer === String(currentQuestion.correctAnswer) &&
+                  AnswerIcon(true, "#6bbd6e")}
+              </Box>
             </Stack>
           ))}
         </RadioGroup>
